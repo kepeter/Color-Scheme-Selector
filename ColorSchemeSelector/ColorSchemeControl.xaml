@@ -40,7 +40,9 @@
             </StackPanel>
             <TabControl TabStripPlacement="Left">
                 <TabItem Header="Complements">
-                    <Grid/>
+                    <Grid>
+                        <Button Height="32" Width="32" Background="Azure"/>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Split Complements">
                     <Grid/>
