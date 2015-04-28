@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace ColorSchemeSelector
+namespace ColorSchemeExtension
 {
     /// <summary>
     /// Interaction logic for ColorSchemeControl.xaml
@@ -23,6 +11,24 @@ namespace ColorSchemeSelector
         public ColorSchemeControl ( )
         {
             InitializeComponent ( );
+
+            SelectedColor.Background = new SolidColorBrush ( Color.FromRgb ( GBPart.R, GBPart.G, GBPart.B ) );
+
+            RPart.PropertyChanged += RColor_PropertyChanged;
+            GBPart.PropertyChanged += GBColor_PropertyChanged;
+        }
+
+        void GBColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
+        {
+            SelectedColor.Background = new SolidColorBrush ( Color.FromRgb ( GBPart.R, GBPart.G, GBPart.B ) );
+        }
+
+        void RColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
+        {
+            if ( e.PropertyName == "R" )
+            {
+                GBPart.R = ( ( ColorWheelR )sender ).R;
+            }
         }
     }
 }

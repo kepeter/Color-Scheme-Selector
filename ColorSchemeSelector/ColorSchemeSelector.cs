@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace ColorSchemeSelector
+namespace ColorSchemeExtension
 {
     [PackageRegistration ( UseManagedResourcesOnly = true )]
     [InstalledProductRegistration ( "#110", "#112", "1.0", IconResourceID = 400 )]

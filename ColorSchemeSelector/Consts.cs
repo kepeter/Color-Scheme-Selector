@@ -1,4 +1,4 @@
-﻿namespace ColorSchemeSelector
+﻿namespace ColorSchemeExtension
 {
     static class Guids
     {

@@ -1,33 +1,37 @@
-﻿<UserControl x:Class="ColorSchemeSelector.ColorSchemeControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="288">
+﻿<UserControl 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:ColorSchemeExtension"
+    x:Class="ColorSchemeExtension.ColorSchemeControl" 
+    mc:Ignorable="d" 
+    d:DesignHeight="600" 
+    d:DesignWidth="288"
+    x:Name="ToolControl">
     <Grid>
         <StackPanel Orientation="Vertical" Width="288">
             <StackPanel Orientation="Horizontal">
-                <Grid Height="256" Width="256" />
-                <Grid Height="256" Width="16" Margin="16,0,0,0" />
+                <local:ColorWheelGB x:Name="GBPart" Height="256" Width="256"/>
+                <local:ColorWheelR x:Name="RPart" Height="256" Width="16" Margin="16,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="R:" FontWeight="Bold" Width="23" />
-                        <TextBox Height="23" Width="40" Text="{Binding R, ElementName=GBColor, UpdateSourceTrigger=LostFocus}" />
+                        <TextBox Height="23" Width="40" Text="{Binding R, ElementName=GBPart, UpdateSourceTrigger=LostFocus}" />
                         <Label Content="G:" FontWeight="Bold" Width="23" />
-                        <TextBox Height="23" Width="40" Text="{Binding G, ElementName=GBColor, UpdateSourceTrigger=LostFocus}" />
+                        <TextBox Height="23" Width="40" Text="{Binding G, ElementName=GBPart, UpdateSourceTrigger=LostFocus}" />
                         <Label Content="B:" FontWeight="Bold" Width="23" />
-                        <TextBox Height="23" Width="40" Text="{Binding B, ElementName=GBColor, UpdateSourceTrigger=LostFocus}" />
+                        <TextBox Height="23" Width="40" Text="{Binding B, ElementName=GBPart, UpdateSourceTrigger=LostFocus}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="H:" FontWeight="Bold" Width="23" />
-                        <TextBox Height="23" Width="40" Text="{Binding H, ElementName=GBColor, UpdateSourceTrigger=LostFocus}" />
+                        <TextBox Height="23" Width="40" Text="{Binding H, ElementName=GBPart, UpdateSourceTrigger=LostFocus}" />
                         <Label Content="S:" FontWeight="Bold" Width="23" />
-                        <TextBox Height="23" Width="40" Text="{Binding S, ElementName=GBColor, UpdateSourceTrigger=LostFocus}" />
+                        <TextBox Height="23" Width="40" Text="{Binding S, ElementName=GBPart, UpdateSourceTrigger=LostFocus}" />
                         <Label Content="V:" FontWeight="Bold" Width="23" />
-                        <TextBox Height="23" Width="40" Text="{Binding V, ElementName=GBColor, UpdateSourceTrigger=LostFocus}" />
+                        <TextBox Height="23" Width="40" Text="{Binding V, ElementName=GBPart, UpdateSourceTrigger=LostFocus}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
