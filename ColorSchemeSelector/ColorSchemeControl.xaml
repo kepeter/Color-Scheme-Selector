@@ -41,7 +41,7 @@
             <TabControl TabStripPlacement="Left">
                 <TabItem Header="Complements">
                     <Grid>
-                        <Button Height="32" Width="32" Background="Azure"/>
+                        <Button Height="32" Width="32" Background="Azure" Click="Button_Click"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Split Complements">

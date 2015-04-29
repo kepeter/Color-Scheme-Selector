@@ -128,6 +128,15 @@
     <Compile Include="ColorSchemeControl.xaml.cs">
       <DependentUpon>ColorSchemeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ColorSchemeOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorSchemeOptionsControl.Designer.cs">
+      <DependentUpon>ColorSchemeOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorSchemeOptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ColorSchemeToolWindow.cs" />
     <Compile Include="ColorWheelGB.xaml.cs">
       <DependentUpon>ColorWheelGB.xaml</DependentUpon>
@@ -140,6 +149,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ColorSchemeOptionsControl.resx">
+      <DependentUpon>ColorSchemeOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
