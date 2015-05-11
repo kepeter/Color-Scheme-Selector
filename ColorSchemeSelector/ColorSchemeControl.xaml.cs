@@ -22,6 +22,23 @@ namespace ColorSchemeExtension
 
 			RPart.PropertyChanged += RColor_PropertyChanged;
 			GBPart.PropertyChanged += GBColor_PropertyChanged;
+
+			var oButtons = new Array[ 8 ] {	
+				new Button[ 2 ] { Complements_0_0, Complements_0_1 },
+				new Button[ 3 ] { Split_0_0, Split_0_1, Split_0_2 },
+				new Button[ 3 ] { Triads_0_0, Triads_0_1, Triads_0_2 },
+				new Button[ 4 ] { Tetrads_0_0, Tetrads_0_1, Tetrads_0_2, Tetrads_0_3 },
+				new Button[ 5 ] { Quintads_0_0, Quintads_0_1, Quintads_0_2, Quintads_0_3, Quintads_0_4 },
+				new Button[ 3 ] { Analogous_0_0, Analogous_0_1, Analogous_0_2 },
+				new Button[ 5 ] { Monochromatics_0_0, Monochromatics_0_1, Monochromatics_0_2, Monochromatics_0_3, Monochromatics_0_4 },
+				new Array[ 5 ] {
+					new Button[ 5 ] { Combinations_0_0, Combinations_0_1, Combinations_0_2, Combinations_0_3, Combinations_0_4 },
+					new Button[ 5 ] { Combinations_1_0, Combinations_1_1, Combinations_1_2, Combinations_1_3, Combinations_1_4 },
+					new Button[ 5 ] { Combinations_2_0, Combinations_2_1, Combinations_2_2, Combinations_2_3, Combinations_2_4 },
+					new Button[ 5 ] { Combinations_3_0, Combinations_3_1, Combinations_3_2, Combinations_3_3, Combinations_3_4 },
+					new Button[ 5 ] { Combinations_4_0, Combinations_4_1, Combinations_4_2, Combinations_4_3, Combinations_4_4 }
+				}
+			};
 		}
 
 		void GBColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
