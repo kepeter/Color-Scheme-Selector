@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Media;
 using EnvDTE;
@@ -11,6 +14,8 @@ namespace ColorSchemeExtension
 	public partial class ColorSchemeControl : UserControl
 	{
 		private ColorSchemeToolWindow _Parent = null;
+		private ColorSchemeOptionsPage _OptionPage = null;
+		private object _Buttons = null;
 
 		public ColorSchemeControl ( ColorSchemeToolWindow Parent )
 		{
@@ -23,7 +28,7 @@ namespace ColorSchemeExtension
 			RPart.PropertyChanged += RColor_PropertyChanged;
 			GBPart.PropertyChanged += GBColor_PropertyChanged;
 
-			var oButtons = new Array[ 8 ] {	
+			_Buttons = new Array[ 8 ] {	
 				new Button[ 2 ] { Complements_0_0, Complements_0_1 },
 				new Button[ 3 ] { Split_0_0, Split_0_1, Split_0_2 },
 				new Button[ 3 ] { Triads_0_0, Triads_0_1, Triads_0_2 },
@@ -69,24 +74,93 @@ namespace ColorSchemeExtension
 			EnvDTE80.DTE2 oApplication = ( EnvDTE80.DTE2 )GetService( typeof( EnvDTE.DTE ) );
 			EnvDTE.Document oActive = oApplication.ActiveDocument;
 
+			if ( _OptionPage == null )
+			{
+				_OptionPage = new ColorSchemeOptionsPage( );
+				PropertyInfo[ ] oPropertyInfoArray = _OptionPage.GetType( ).GetProperties( );
+				Properties oProperties = oApplication.get_Properties( "Custom Tools", "Color Scheme Selector" );
+
+				foreach ( PropertyInfo oPropertyInfo in oPropertyInfoArray )
+				{
+					if ( oPropertyInfo.ReflectedType == oPropertyInfo.DeclaringType )
+					{
+						oPropertyInfo.SetValue( _OptionPage, oProperties.Item( oPropertyInfo.Name ).Value, null );
+					}
+				}
+			}
+
 			if ( oActive != null )
 			{
 				string szLanguage = oActive.Language;
 				TextSelection oSelection = ( TextSelection )oActive.Selection;
 
-				/*	Languages
-				 * 
-					JavaScript
-					CSharp
-					CSS
-					XAML
-					Basic
-					HTMLX
-					LESS
-				*/
+				Color2CodeMap oMap = _OptionPage.Color2CodeList.Find( oItem => oItem.Language.ToLower( ).Equals( oActive.Language.ToLower( ) ) );
 
-				oSelection.Text = "color value";
+				if ( oMap != null )
+				{
+					oSelection.Text = EvaluateTemplate( oMap.Template, ( ( SolidColorBrush )( ( Button )sender ).Background ).Color );
+				}
 			}
+		}
+
+		private string EvaluateTemplate ( string Template, Color Color )
+		{
+			IDictionary<string, string> oReplMap = new Dictionary<string, string>( )
+															{
+																{"%X",X(Color)},
+																{"%R",R(Color)},
+																{"%G",G(Color)},
+																{"%B",B(Color)},
+																{"%Rx",Rx(Color)},
+																{"%Gx",Gx(Color)},
+																{"%Bx",Bx(Color)},
+																{"%C",C(Color)}
+															};
+
+			Regex oRegex = new Regex( String.Join( "|", oReplMap.Keys ), RegexOptions.IgnoreCase );
+			string szWork = oRegex.Replace( Template, oItem => oReplMap[ oItem.Value ] );
+
+			return ( szWork );
+		}
+
+		private string R ( Color Color )
+		{
+			return ( string.Format( "{0}", Color.R ) );
+		}
+
+		private string G ( Color Color )
+		{
+			return ( string.Format( "{0}", Color.G ) );
+		}
+
+		private string B ( Color Color )
+		{
+			return ( string.Format( "{0}", Color.B ) );
+		}
+
+		private string Rx ( Color Color )
+		{
+			return ( string.Format( "#{0:X2}", Color.R ) );
+		}
+
+		private string Gx ( Color Color )
+		{
+			return ( string.Format( "#{0:X2}", Color.G ) );
+		}
+
+		private string Bx ( Color Color )
+		{
+			return ( string.Format( "#{0:X2}", Color.B ) );
+		}
+
+		private string X ( Color Color )
+		{
+			return ( string.Format( "#{0:X2}{1:X2}{2:X2}", Color.R, Color.G, Color.B ) );
+		}
+
+		private string C ( Color Color )
+		{
+			return ( string.Format( "{0}", Convert.ToUInt32( string.Format( "{0:X2}{1:X2}{2:X2}", Color.R, Color.G, Color.B ), 16 ) ) );
 		}
 	}
 }
