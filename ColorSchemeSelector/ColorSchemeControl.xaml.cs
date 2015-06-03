@@ -44,14 +44,16 @@ namespace ColorSchemeExtension
 					new Button[ 5 ] { Combinations_4_0, Combinations_4_1, Combinations_4_2, Combinations_4_3, Combinations_4_4 }
 				}
 			};
+
+			FillColorButtons( Color.FromRgb( GBPart.R, GBPart.G, GBPart.B ) );
 		}
 
-		void GBColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
+		private void GBColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
 		{
-			SelectedColor.Background = new SolidColorBrush( Color.FromRgb( GBPart.R, GBPart.G, GBPart.B ) );
+			FillColorButtons( Color.FromRgb( GBPart.R, GBPart.G, GBPart.B ) );
 		}
 
-		void RColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
+		private void RColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
 		{
 			if ( e.PropertyName == "R" )
 			{
@@ -59,7 +61,72 @@ namespace ColorSchemeExtension
 			}
 		}
 
-		protected object GetService ( Type service )
+		private void FillColorButtons ( Color Color )
+		{
+			Complements_0_0.Background = new SolidColorBrush( Color );
+			Complements_0_1.Background = new SolidColorBrush( Color );
+
+			Split_0_0.Background = new SolidColorBrush( Color );
+			Split_0_1.Background = new SolidColorBrush( Color );
+			Split_0_2.Background = new SolidColorBrush( Color );
+
+			Triads_0_0.Background = new SolidColorBrush( Color );
+			Triads_0_1.Background = new SolidColorBrush( Color );
+			Triads_0_2.Background = new SolidColorBrush( Color );
+
+			Tetrads_0_0.Background = new SolidColorBrush( Color );
+			Tetrads_0_1.Background = new SolidColorBrush( Color );
+			Tetrads_0_2.Background = new SolidColorBrush( Color );
+			Tetrads_0_3.Background = new SolidColorBrush( Color );
+
+			Quintads_0_0.Background = new SolidColorBrush( Color );
+			Quintads_0_1.Background = new SolidColorBrush( Color );
+			Quintads_0_2.Background = new SolidColorBrush( Color );
+			Quintads_0_3.Background = new SolidColorBrush( Color );
+			Quintads_0_4.Background = new SolidColorBrush( Color );
+
+			Analogous_0_0.Background = new SolidColorBrush( Color );
+			Analogous_0_1.Background = new SolidColorBrush( Color );
+			Analogous_0_2.Background = new SolidColorBrush( Color );
+
+			Monochromatics_0_0.Background = new SolidColorBrush( Color );
+			Monochromatics_0_1.Background = new SolidColorBrush( Color );
+			Monochromatics_0_2.Background = new SolidColorBrush( Color );
+			Monochromatics_0_3.Background = new SolidColorBrush( Color );
+			Monochromatics_0_4.Background = new SolidColorBrush( Color );
+
+			Combinations_0_0.Background = new SolidColorBrush( Color );
+			Combinations_0_1.Background = new SolidColorBrush( Color );
+			Combinations_0_2.Background = new SolidColorBrush( Color );
+			Combinations_0_3.Background = new SolidColorBrush( Color );
+			Combinations_0_4.Background = new SolidColorBrush( Color );
+
+			Combinations_1_0.Background = new SolidColorBrush( Color );
+			Combinations_1_1.Background = new SolidColorBrush( Color );
+			Combinations_1_2.Background = new SolidColorBrush( Color );
+			Combinations_1_3.Background = new SolidColorBrush( Color );
+			Combinations_1_4.Background = new SolidColorBrush( Color );
+
+			Combinations_2_0.Background = new SolidColorBrush( Color );
+			Combinations_2_1.Background = new SolidColorBrush( Color );
+			Combinations_2_2.Background = new SolidColorBrush( Color );
+			Combinations_2_3.Background = new SolidColorBrush( Color );
+			Combinations_2_4.Background = new SolidColorBrush( Color );
+
+			Combinations_3_0.Background = new SolidColorBrush( Color );
+			Combinations_3_1.Background = new SolidColorBrush( Color );
+			Combinations_3_2.Background = new SolidColorBrush( Color );
+			Combinations_3_3.Background = new SolidColorBrush( Color );
+			Combinations_3_4.Background = new SolidColorBrush( Color );
+
+			Combinations_4_0.Background = new SolidColorBrush( Color );
+			Combinations_4_1.Background = new SolidColorBrush( Color );
+			Combinations_4_2.Background = new SolidColorBrush( Color );
+			Combinations_4_3.Background = new SolidColorBrush( Color );
+			Combinations_4_4.Background = new SolidColorBrush( Color );
+		}
+
+		private object GetService ( Type service )
 		{
 			if ( _Parent != null )
 			{
