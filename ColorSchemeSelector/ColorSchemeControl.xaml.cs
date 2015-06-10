@@ -23,8 +23,6 @@ namespace ColorSchemeExtension
 
 			_Parent = Parent;
 
-			SelectedColor.Background = new SolidColorBrush( Color.FromRgb( GBPart.R, GBPart.G, GBPart.B ) );
-
 			RPart.PropertyChanged += RColor_PropertyChanged;
 			GBPart.PropertyChanged += GBColor_PropertyChanged;
 
@@ -45,12 +43,12 @@ namespace ColorSchemeExtension
 				}
 			};
 
-			FillColorButtons( Color.FromRgb( GBPart.R, GBPart.G, GBPart.B ) );
+			FillColorButtons( GBPart.BaseColor.Color );
 		}
 
 		private void GBColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
 		{
-			FillColorButtons( Color.FromRgb( GBPart.R, GBPart.G, GBPart.B ) );
+			FillColorButtons( GBPart.BaseColor.Color );
 		}
 
 		private void RColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
@@ -63,6 +61,8 @@ namespace ColorSchemeExtension
 
 		private void FillColorButtons ( Color Color )
 		{
+			SelectedColor.Background = new SolidColorBrush( Color );
+
 			Complements_0_0.Background = new SolidColorBrush( Color );
 			Complements_0_1.Background = new SolidColorBrush( Color );
 

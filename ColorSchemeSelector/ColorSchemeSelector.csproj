@@ -85,6 +85,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorEx.cs" />
     <Compile Include="ColorSchemeControl.xaml.cs">
       <DependentUpon>ColorSchemeControl.xaml</DependentUpon>
     </Compile>
