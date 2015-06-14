@@ -9,186 +9,180 @@ using System.Windows.Media.Imaging;
 
 namespace ColorSchemeExtension
 {
-	public partial class ColorWheelGB : UserControl, INotifyPropertyChanged
-	{
-		#region constant values
+    public partial class ColorWheelGB : UserControl, INotifyPropertyChanged
+    {
+        #region constant values
 
-		private int _Width = 256;
-		private int _Height = 256;
-		private int _Stride = 768;
-		private Pen _Pen = new Pen( Brushes.Cyan, 1 );
-		private Rect _Rect = new Rect( 0, 0, 256, 256 );
-		private BitmapSource _Image;
+        private int _Width = 256;
+        private int _Height = 256;
+        private int _Stride = 768;
+        private Pen _Pen = new Pen ( Brushes.Cyan, 1 );
+        private Rect _Rect = new Rect ( 0, 0, 256, 256 );
+        private BitmapSource _Image;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region ctor / dtor
 
-		#region R
+        public ColorWheelGB ( )
+        {
+            InitializeComponent ( );
 
-		private byte _R;
+            CreateImage ( );
+        }
 
-		public byte R
-		{
-			get
-			{
-				return ( _R );
-			}
-			set
-			{
-				_R = value;
+        #endregion
 
-				CreateImage( );
-				InvalidateVisual( );
+        #region Properties
 
-				NotifyPropertyChanged( "R" );
-			}
-		}
+        #region R
 
-		#endregion
+        private byte _R;
 
-		#region G
+        public byte R
+        {
+            set
+            {
+                _R = value;
 
-		private byte _G;
+                CreateImage ( );
+                InvalidateVisual ( );
+            }
+        }
 
-		public byte G
-		{
-			get
-			{
-				return ( _G );
-			}
-			set
-			{
-				_G = value;
+        #endregion
 
-				UpdateSelector( _G, _B, true );
-			}
-		}
+        #region G
 
-		#endregion
+        private byte _G;
 
-		#region B
+        public byte G
+        {
+            get
+            {
+                return ( _G );
+            }
+            set
+            {
+                _G = value;
 
-		private byte _B;
+                UpdateSelector ( _G, _B, true );
+            }
+        }
 
-		public byte B
-		{
-			get
-			{
-				return ( _B );
-			}
-			set
-			{
-				_B = value;
+        #endregion
 
-				UpdateSelector( _G, _B, true );
-			}
-		}
+        #region B
 
-		#endregion
+        private byte _B;
 
-		#endregion
+        public byte B
+        {
+            get
+            {
+                return ( _B );
+            }
+            set
+            {
+                _B = value;
 
-		#region ctor / dtor
+                UpdateSelector ( _G, _B, true );
+            }
+        }
 
-		public ColorWheelGB ( )
-		{
-			InitializeComponent( );
+        #endregion
 
-			CreateImage( );
-		}
+        #endregion
 
-		#endregion
+        #region Event handlers
 
-		#region Event handlers
+        protected override void OnRender ( DrawingContext drawingContext )
+        {
+            base.OnRender ( drawingContext );
 
-		protected override void OnRender ( DrawingContext drawingContext )
-		{
-			base.OnRender( drawingContext );
+            drawingContext.DrawImage ( _Image, _Rect );
 
-			drawingContext.DrawImage( _Image, _Rect );
+            drawingContext.DrawLine ( _Pen, new Point ( _G, 0 ), new Point ( _G, _Height ) );
+            drawingContext.DrawLine ( _Pen, new Point ( 0, _B ), new Point ( _Width, _B ) );
+        }
 
-			drawingContext.DrawLine( _Pen, new Point( _G, 0 ), new Point( _G, _Height ) );
-			drawingContext.DrawLine( _Pen, new Point( 0, _B ), new Point( _Width, _B ) );
-		}
+        protected override void OnMouseLeftButtonUp ( MouseButtonEventArgs e )
+        {
+            base.OnMouseLeftButtonUp ( e );
 
-		protected override void OnMouseLeftButtonUp ( MouseButtonEventArgs e )
-		{
-			base.OnMouseLeftButtonUp( e );
+            Point oPoint = e.GetPosition ( this );
 
-			Point oPoint = e.GetPosition( this );
+            UpdateSelector ( oPoint.X, oPoint.Y );
+        }
 
-			UpdateSelector( oPoint.X, oPoint.Y );
-		}
+        protected override void OnMouseMove ( MouseEventArgs e )
+        {
+            base.OnMouseMove ( e );
 
-		protected override void OnMouseMove ( MouseEventArgs e )
-		{
-			base.OnMouseMove( e );
+            if ( e.LeftButton == MouseButtonState.Pressed )
+            {
+                Point oPoint = e.GetPosition ( this );
 
-			if ( e.LeftButton == MouseButtonState.Pressed )
-			{
-				Point oPoint = e.GetPosition( this );
+                UpdateSelector ( oPoint.X, oPoint.Y );
+            }
+        }
 
-				UpdateSelector( oPoint.X, oPoint.Y );
-			}
-		}
+        public event PropertyChangedEventHandler PropertyChanged;
 
-		public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged ( [CallerMemberName] string PropertyName = "" )
+        {
+            if ( PropertyChanged != null )
+            {
+                PropertyChanged ( this, new PropertyChangedEventArgs ( PropertyName ) );
+            }
+        }
 
-		private void NotifyPropertyChanged ( [CallerMemberName] string PropertyName = "" )
-		{
-			if ( PropertyChanged != null )
-			{
-				PropertyChanged( this, new PropertyChangedEventArgs( PropertyName ) );
-			}
-		}
+        #endregion
 
-		#endregion
+        #region Helpers
 
-		#region Helpers
+        private void UpdateSelector ( double G, double B, bool FromPropery = false )
+        {
+            _G = ( byte )G;
+            if ( !FromPropery )
+            {
+                NotifyPropertyChanged ( "G" );
+            }
 
-		private void UpdateSelector ( double G, double B, bool FromPropery = false )
-		{
-			_G = ( byte )G;
-			if ( !FromPropery )
-			{
-				NotifyPropertyChanged( "G" );
-			}
+            _B = ( byte )B;
+            if ( !FromPropery )
+            {
+                NotifyPropertyChanged ( "B" );
+            }
 
-			_B = ( byte )B;
-			if ( !FromPropery )
-			{
-				NotifyPropertyChanged( "B" );
-			}
+            InvalidateVisual ( );
+        }
 
-			InvalidateVisual( );
-		}
+        private void CreateImage ( )
+        {
+            Width = _Width;
+            Height = _Height;
 
-		private void CreateImage ( )
-		{
-			Width = _Width;
-			Height = _Height;
+            byte[ ] bPixels = new byte[ Math.Abs ( _Stride ) * _Height ];
 
-			byte[ ] bPixels = new byte[ Math.Abs( _Stride ) * _Height ];
+            for ( int i = 0; i < bPixels.Length; i += 3 )
+            {
+                bPixels[ i + 2 ] = ( byte )( i / _Stride );
+                bPixels[ i + 1 ] = ( byte )( ( i % _Stride ) / 3 );
+                bPixels[ i ] = _R;
+            }
 
-			for ( int i = 0; i < bPixels.Length; i += 3 )
-			{
-				bPixels[ i + 2 ] = ( byte )( i / _Stride );
-				bPixels[ i + 1 ] = ( byte )( ( i % _Stride ) / 3 );
-				bPixels[ i ] = _R;
-			}
+            _Image = BitmapSource.Create (
+                _Width,
+                _Height,
+                0,
+                0,
+                PixelFormats.Rgb24,
+                null,
+                bPixels,
+                _Stride );
+        }
 
-			_Image = BitmapSource.Create(
-				_Width,
-				_Height,
-				0,
-				0,
-				PixelFormats.Rgb24,
-				null,
-				bPixels,
-				_Stride );
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -332,7 +332,7 @@ namespace ColorSchemeExtension
 
 		private string C ( Color Color )
 		{
-			return ( string.Format ( "{0}", Convert.ToUInt16 ( string.Format ( "{0:X2}{1:X2}{2:X2}", Color.R, Color.G, Color.B ), 16 ) ) );
+			return ( string.Format ( "{0}", Convert.ToUInt32 ( string.Format ( "{0:X2}{1:X2}{2:X2}", Color.R, Color.G, Color.B ), 16 ) ) );
 		}
 	}
 }

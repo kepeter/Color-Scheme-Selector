@@ -7,14 +7,14 @@
     x:Class="ColorSchemeExtension.ColorSchemeControl" 
     mc:Ignorable="d" 
     d:DesignHeight="600" 
-    d:DesignWidth="288"
+    d:DesignWidth="304"
     x:Name="ToolControl">
     <Grid>
-        <StackPanel Orientation="Vertical" Width="288">
-            <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical" Width="304">
+            <StackPanel Orientation="Horizontal" Margin="8,8,8,8">
                 <local:ColorWheelRGB x:Name="RGBWheel" Height="256" Width="288"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="8,0,8,0">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="R:" FontWeight="Bold" Width="23" />
@@ -37,7 +37,7 @@
                     <Label x:Name="SelectedColor" Height="40" Width="92" Margin="8,0,0,0" />
                 </StackPanel>
             </StackPanel>
-            <TabControl TabStripPlacement="Left">
+            <TabControl TabStripPlacement="Left" Margin="8,8,8,8">
                 <TabItem Header="Complements">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">

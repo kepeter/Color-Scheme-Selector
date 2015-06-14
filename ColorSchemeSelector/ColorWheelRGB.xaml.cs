@@ -17,191 +17,240 @@ using System.Windows.Shapes;
 
 namespace ColorSchemeExtension
 {
-	/// <summary>
-	/// Interaction logic for ColorWheelRGB.xaml
-	/// </summary>
-	public partial class ColorWheelRGB : UserControl, INotifyPropertyChanged
-	{
-		#region ctor / dtor
+    /// <summary>
+    /// Interaction logic for ColorWheelRGB.xaml
+    /// </summary>
+    public partial class ColorWheelRGB : UserControl, INotifyPropertyChanged
+    {
+        #region ctor / dtor
 
-		public ColorWheelRGB ( )
-		{
-			InitializeComponent( );
+        public ColorWheelRGB ( )
+        {
+            InitializeComponent ( );
 
-			RPart.PropertyChanged += Color_PropertyChanged;
-			GBPart.PropertyChanged += Color_PropertyChanged;
-		}
+            R = 128;
+            G = 128;
+            B = 128;
 
-		#endregion
+            RPart.PropertyChanged += Color_PropertyChanged;
+            GBPart.PropertyChanged += Color_PropertyChanged;
+        }
 
-		#region Properties
+        #endregion
 
-		#region Color
+        #region Properties
 
-		private ColorEx _BaseColor = new ColorEx( );
+        #region Color
 
-		public ColorEx BaseColor
-		{
-			get
-			{
-				return _BaseColor;
-			}
-			set
-			{
-				_BaseColor = value;
-			}
-		}
+        private ColorEx _BaseColor = new ColorEx ( );
 
-		#endregion
+        public ColorEx BaseColor
+        {
+            get
+            {
+                return _BaseColor;
+            }
+            set
+            {
+                _BaseColor = value;
+            }
+        }
 
-		#region R
+        #endregion
 
-		public byte R
-		{
-			get
-			{
-				return ( _BaseColor.R );
-			}
-			set
-			{
-				_BaseColor.R = value;
+        #region R
 
-				NotifyPropertyChanged( );
-			}
-		}
+        public byte R
+        {
+            get
+            {
+                return ( _BaseColor.R );
+            }
+            set
+            {
+                _BaseColor.R = value;
 
-		#endregion
+                SyncColor ( true, false, false, false );
 
-		#region G
+                NotifyPropertyChanged ( );
+            }
+        }
 
-		public byte G
-		{
-			get
-			{
-				return ( _BaseColor.G );
-			}
-			set
-			{
-				_BaseColor.G = value;
+        #endregion
 
-				NotifyPropertyChanged( );
-			}
-		}
+        #region G
 
-		#endregion
+        public byte G
+        {
+            get
+            {
+                return ( _BaseColor.G );
+            }
+            set
+            {
+                _BaseColor.G = value;
 
-		#region B
+                SyncColor ( false, true, false, false );
 
-		public byte B
-		{
-			get
-			{
-				return ( _BaseColor.B );
-			}
-			set
-			{
-				_BaseColor.B = value;
+                NotifyPropertyChanged ( );
+            }
+        }
 
-				NotifyPropertyChanged( );
-			}
-		}
+        #endregion
 
-		#endregion
+        #region B
 
-		#region H
+        public byte B
+        {
+            get
+            {
+                return ( _BaseColor.B );
+            }
+            set
+            {
+                _BaseColor.B = value;
 
-		public short H
-		{
-			get
-			{
-				return ( _BaseColor.H );
-			}
-			set
-			{
-				_BaseColor.H = value;
+                SyncColor ( false, false, true, false );
 
-				NotifyPropertyChanged( );
-			}
-		}
+                NotifyPropertyChanged ( );
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region S
+        #region H
 
-		public byte S
-		{
-			get
-			{
-				return ( _BaseColor.S );
-			}
-			set
-			{
-				_BaseColor.S = value;
+        public short H
+        {
+            get
+            {
+                return ( _BaseColor.H );
+            }
+            set
+            {
+                _BaseColor.H = value;
 
-				NotifyPropertyChanged( );
-			}
-		}
+                SyncColor ( false, false, false, true );
 
-		#endregion
+                NotifyPropertyChanged ( );
+            }
+        }
 
-		#region V
+        #endregion
 
-		public byte V
-		{
-			get
-			{
-				return ( _BaseColor.V );
-			}
-			set
-			{
-				_BaseColor.V = value;
+        #region S
 
-				NotifyPropertyChanged( );
-			}
-		}
+        public byte S
+        {
+            get
+            {
+                return ( _BaseColor.S );
+            }
+            set
+            {
+                _BaseColor.S = value;
 
-		#endregion
+                SyncColor ( false, false, false, true );
 
-		#endregion
+                NotifyPropertyChanged ( );
+            }
+        }
 
-		#region INotifyPropertyChanged Members
+        #endregion
 
-		public event PropertyChangedEventHandler PropertyChanged;
+        #region V
 
-		private void NotifyPropertyChanged ( [CallerMemberName] string PropertyName = "" )
-		{
-			if ( PropertyChanged != null )
-			{
-				PropertyChanged( this, new PropertyChangedEventArgs( PropertyName ) );
-			}
-		}
+        public byte V
+        {
+            get
+            {
+                return ( _BaseColor.V );
+            }
+            set
+            {
+                _BaseColor.V = value;
 
-		#endregion
+                SyncColor ( false, false, false, true );
 
-		#region Event Handlers
-		
-		private void Color_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
-		{
-			if ( e.PropertyName == "R" )
-			{
-				R = ( ( ColorWheelR )sender ).R;
-			}
+                NotifyPropertyChanged ( );
+            }
+        }
 
-			if ( e.PropertyName == "G" )
-			{
-				G = ( ( ColorWheelGB )sender ).G;
-			}
+        #endregion
 
-			if ( e.PropertyName == "B" )
-			{
-				B = ( ( ColorWheelGB )sender ).B;
-			}
+        #endregion
 
-			NotifyPropertyChanged( "H" );
-			NotifyPropertyChanged( "S" );
-			NotifyPropertyChanged( "V" );
-		}
+        #region INotifyPropertyChanged Members
 
-		#endregion
-	}
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged ( [CallerMemberName] string PropertyName = "" )
+        {
+            if ( PropertyChanged != null )
+            {
+                PropertyChanged ( this, new PropertyChangedEventArgs ( PropertyName ) );
+            }
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void Color_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
+        {
+            if ( e.PropertyName == "R" )
+            {
+                R = ( ( ColorWheelR )sender ).R;
+            }
+
+            if ( e.PropertyName == "G" )
+            {
+                G = ( ( ColorWheelGB )sender ).G;
+            }
+
+            if ( e.PropertyName == "B" )
+            {
+                B = ( ( ColorWheelGB )sender ).B;
+            }
+
+            NotifyPropertyChanged ( "H" );
+            NotifyPropertyChanged ( "S" );
+            NotifyPropertyChanged ( "V" );
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private void SyncColor ( bool R = false, bool G = false, bool B = false, bool HSV = false )
+        {
+            if ( HSV )
+            {
+                RPart.R = _BaseColor.R;
+                GBPart.R = _BaseColor.R;
+                GBPart.G = _BaseColor.G;
+                GBPart.B = _BaseColor.B;
+            }
+            else
+            {
+                if ( R )
+                {
+                    RPart.R = _BaseColor.R;
+                    GBPart.R = _BaseColor.R;
+                }
+
+                if ( G )
+                {
+                    GBPart.G = _BaseColor.G;
+                }
+
+                if ( B )
+                {
+                    GBPart.B = _BaseColor.B;
+                }
+            }
+        }
+
+        #endregion
+    }
 }

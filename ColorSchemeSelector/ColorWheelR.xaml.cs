@@ -11,6 +11,8 @@ namespace ColorSchemeExtension
 {
     public partial class ColorWheelR : UserControl, INotifyPropertyChanged
     {
+        #region constant values
+
         private int _Width = 16;
         private int _Height = 256;
         private int _Stride = 48;
@@ -18,9 +20,22 @@ namespace ColorSchemeExtension
         private Rect _Rect = new Rect ( 0, 0, 16, 256 );
         private BitmapSource _Image;
 
+        #endregion
+
+        #region ctor / dtor
+
+        public ColorWheelR ( )
+        {
+            InitializeComponent ( );
+
+            CreateImage ( );
+        }
+
+        #endregion
+
         #region Properties
 
-        private byte _R = 128;
+        private byte _R;
 
         public byte R
         {
@@ -34,37 +49,6 @@ namespace ColorSchemeExtension
 
                 InvalidateVisual ( );
             }
-        }
-
-        #endregion
-
-        #region ctor / dtor
-
-        public ColorWheelR ( )
-        {
-            InitializeComponent ( );
-
-            Width = _Width;
-            Height = _Height;
-
-            byte[ ] bPixels = new byte[ Math.Abs ( _Stride ) * _Height ];
-
-            for ( int i = 0; i < bPixels.Length; i += 3 )
-            {
-                bPixels[ i + 2 ] = 0;
-                bPixels[ i + 1 ] = 0;
-                bPixels[ i ] = ( byte )( i / _Stride );
-            }
-
-            _Image = BitmapSource.Create (
-                _Width,
-                _Height,
-                0,
-                0,
-                PixelFormats.Rgb24,
-                null,
-                bPixels,
-                _Stride );
         }
 
         #endregion
@@ -97,7 +81,7 @@ namespace ColorSchemeExtension
             {
                 Point oPoint = e.GetPosition ( this );
 
-                UpdateSelector (  oPoint.Y );
+                UpdateSelector ( oPoint.Y );
             }
         }
 
@@ -122,6 +106,31 @@ namespace ColorSchemeExtension
             NotifyPropertyChanged ( "R" );
 
             InvalidateVisual ( );
+        }
+
+        private void CreateImage ( )
+        {
+            Width = _Width;
+            Height = _Height;
+
+            byte[ ] bPixels = new byte[ Math.Abs ( _Stride ) * _Height ];
+
+            for ( int i = 0; i < bPixels.Length; i += 3 )
+            {
+                bPixels[ i + 2 ] = 0;
+                bPixels[ i + 1 ] = 0;
+                bPixels[ i ] = ( byte )( i / _Stride );
+            }
+
+            _Image = BitmapSource.Create (
+                _Width,
+                _Height,
+                0,
+                0,
+                PixelFormats.Rgb24,
+                null,
+                bPixels,
+                _Stride );
         }
 
         #endregion
