@@ -24,35 +24,19 @@ namespace ColorSchemeExtension
 
 		#region Properties
 
-		#region Color
-
-		private ColorEx _BaseColor = new ColorEx( );
-
-		public ColorEx BaseColor
-		{
-			get
-			{
-				return _BaseColor;
-			}
-			set
-			{
-				_BaseColor = value;
-			}
-		}
-
-		#endregion
-
 		#region R
+
+		private byte _R;
 
 		public byte R
 		{
 			get
 			{
-				return ( _BaseColor.R );
+				return ( _R );
 			}
 			set
 			{
-				_BaseColor.R = value;
+				_R = value;
 
 				CreateImage( );
 				InvalidateVisual( );
@@ -65,17 +49,19 @@ namespace ColorSchemeExtension
 
 		#region G
 
+		private byte _G;
+
 		public byte G
 		{
 			get
 			{
-				return ( _BaseColor.G );
+				return ( _G );
 			}
 			set
 			{
-				_BaseColor.G = value;
+				_G = value;
 
-				UpdateSelector( _BaseColor.G, _BaseColor.B, true );
+				UpdateSelector( _G, _B, true );
 			}
 		}
 
@@ -83,71 +69,19 @@ namespace ColorSchemeExtension
 
 		#region B
 
+		private byte _B;
+
 		public byte B
 		{
 			get
 			{
-				return ( _BaseColor.B );
+				return ( _B );
 			}
 			set
 			{
-				_BaseColor.B = value;
+				_B = value;
 
-				UpdateSelector( _BaseColor.G, _BaseColor.B, true );
-			}
-		}
-
-		#endregion
-
-		#region H
-
-		public short H
-		{
-			get
-			{
-				return ( _BaseColor.H );
-			}
-			set
-			{
-				_BaseColor.H = value;
-
-				NotifyPropertyChanged( "H" );
-			}
-		}
-
-		#endregion
-
-		#region S
-
-		public byte S
-		{
-			get
-			{
-				return ( _BaseColor.S );
-			}
-			set
-			{
-				_BaseColor.S = value;
-
-				NotifyPropertyChanged( "S" );
-			}
-		}
-
-		#endregion
-
-		#region V
-
-		public byte V
-		{
-			get
-			{
-				return ( _BaseColor.V );
-			}
-			set
-			{
-				_BaseColor.V = value;
-
-				NotifyPropertyChanged( "V" );
+				UpdateSelector( _G, _B, true );
 			}
 		}
 
@@ -174,8 +108,8 @@ namespace ColorSchemeExtension
 
 			drawingContext.DrawImage( _Image, _Rect );
 
-			drawingContext.DrawLine( _Pen, new Point( _BaseColor.G, 0 ), new Point( _BaseColor.G, _Height ) );
-			drawingContext.DrawLine( _Pen, new Point( 0, _BaseColor.B ), new Point( _Width, _BaseColor.B ) );
+			drawingContext.DrawLine( _Pen, new Point( _G, 0 ), new Point( _G, _Height ) );
+			drawingContext.DrawLine( _Pen, new Point( 0, _B ), new Point( _Width, _B ) );
 		}
 
 		protected override void OnMouseLeftButtonUp ( MouseButtonEventArgs e )
@@ -215,13 +149,13 @@ namespace ColorSchemeExtension
 
 		private void UpdateSelector ( double G, double B, bool FromPropery = false )
 		{
-			_BaseColor.G = ( byte )G;
+			_G = ( byte )G;
 			if ( !FromPropery )
 			{
 				NotifyPropertyChanged( "G" );
 			}
 
-			_BaseColor.B = ( byte )B;
+			_B = ( byte )B;
 			if ( !FromPropery )
 			{
 				NotifyPropertyChanged( "B" );
@@ -241,7 +175,7 @@ namespace ColorSchemeExtension
 			{
 				bPixels[ i + 2 ] = ( byte )( i / _Stride );
 				bPixels[ i + 1 ] = ( byte )( ( i % _Stride ) / 3 );
-				bPixels[ i ] = _BaseColor.R;
+				bPixels[ i ] = _R;
 			}
 
 			_Image = BitmapSource.Create(

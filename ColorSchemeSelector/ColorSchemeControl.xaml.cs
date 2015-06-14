@@ -8,34 +8,33 @@ using EnvDTE;
 
 namespace ColorSchemeExtension
 {
-    /// <summary>
-    /// Interaction logic for ColorSchemeControl.xaml
-    /// </summary>
-    public partial class ColorSchemeControl : UserControl
-    {
-        private static int Complements = 0;
-        private static int SplitComplements = 1;
-        private static int Triads = 2;
-        private static int Tetrads = 3;
-        private static int Quintads = 4;
-        private static int Analogous = 5;
-        private static int Monochromatics = 6;
-        private static int Combinations = 7;
+	/// <summary>
+	/// Interaction logic for ColorSchemeControl.xaml
+	/// </summary>
+	public partial class ColorSchemeControl : UserControl
+	{
+		private static int Complements = 0;
+		private static int SplitComplements = 1;
+		private static int Triads = 2;
+		private static int Tetrads = 3;
+		private static int Quintads = 4;
+		private static int Analogous = 5;
+		private static int Monochromatics = 6;
+		private static int Combinations = 7;
 
-        private ColorSchemeToolWindow _Parent = null;
-        private ColorSchemeOptionsPage _OptionPage = null;
-        private Array _Buttons = null;
+		private ColorSchemeToolWindow _Parent = null;
+		private ColorSchemeOptionsPage _OptionPage = null;
+		private Array _Buttons = null;
 
-        public ColorSchemeControl ( ColorSchemeToolWindow Parent )
-        {
-            InitializeComponent ( );
+		public ColorSchemeControl ( ColorSchemeToolWindow Parent )
+		{
+			InitializeComponent ( );
 
-            _Parent = Parent;
+			_Parent = Parent;
 
-            RPart.PropertyChanged += RColor_PropertyChanged;
-            GBPart.PropertyChanged += GBColor_PropertyChanged;
+			RGBWheel.PropertyChanged += Color_PropertyChanged;
 
-            _Buttons = new Array[ 8 ] {	
+			_Buttons = new Array[ 8 ] {	
 				new Button[ 2 ] { Complements_0_0, Complements_0_1 },
 				new Button[ 3 ] { Split_0_0, Split_0_1, Split_0_2 },
 				new Button[ 3 ] { Triads_0_0, Triads_0_1, Triads_0_2 },
@@ -52,241 +51,233 @@ namespace ColorSchemeExtension
 				}
 			};
 
-            FillColorButtons ( );
-        }
+			FillColorButtons ( );
+		}
 
-        private void GBColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
-        {
-            FillColorButtons ( );
-        }
+		private void Color_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
+		{
+			FillColorButtons ( );
+		}
 
-        private void RColor_PropertyChanged ( object sender, System.ComponentModel.PropertyChangedEventArgs e )
-        {
-            if ( e.PropertyName == "R" )
-            {
-                GBPart.R = ( ( ColorWheelR )sender ).R;
-            }
-        }
+		private void FillColorButtons ( )
+		{
+			SelectedColor.Background = new SolidColorBrush ( RGBWheel.BaseColor.Color );
 
-        private void FillColorButtons ( )
-        {
-            SelectedColor.Background = new SolidColorBrush ( GBPart.BaseColor.Color );
+			FillComplements ( ( Button[ ] )_Buttons.GetValue ( Complements ), RGBWheel.BaseColor );
+			FillSplitComplements ( ( Button[ ] )_Buttons.GetValue ( SplitComplements ), RGBWheel.BaseColor );
+			FillTriads ( ( Button[ ] )_Buttons.GetValue ( Triads ), RGBWheel.BaseColor );
+			FillTetrads ( ( Button[ ] )_Buttons.GetValue ( Tetrads ), RGBWheel.BaseColor );
+			FillQuintads ( ( Button[ ] )_Buttons.GetValue ( Quintads ), RGBWheel.BaseColor );
+			FillAnalogous ( ( Button[ ] )_Buttons.GetValue ( Analogous ), RGBWheel.BaseColor );
+			FillMonochromatics ( ( Button[ ] )_Buttons.GetValue ( Monochromatics ), RGBWheel.BaseColor );
+			FillCombinations ( ( Array[ ] )_Buttons.GetValue ( Combinations ), RGBWheel.BaseColor );
+		}
 
-            FillComplements ( ( Button[ ] )_Buttons.GetValue ( Complements ), GBPart.BaseColor );
-            FillSplitComplements ( ( Button[ ] )_Buttons.GetValue ( SplitComplements ), GBPart.BaseColor );
-            FillTriads ( ( Button[ ] )_Buttons.GetValue ( Triads ), GBPart.BaseColor );
-            FillTetrads ( ( Button[ ] )_Buttons.GetValue ( Tetrads ), GBPart.BaseColor );
-            FillQuintads ( ( Button[ ] )_Buttons.GetValue ( Quintads ), GBPart.BaseColor );
-            FillAnalogous ( ( Button[ ] )_Buttons.GetValue ( Analogous ), GBPart.BaseColor );
-            FillMonochromatics ( ( Button[ ] )_Buttons.GetValue ( Monochromatics ), GBPart.BaseColor );
-            FillCombinations ( ( Array[ ] )_Buttons.GetValue ( Combinations ), GBPart.BaseColor );
-        }
+		private void FillComplements ( Button[ ] Buttons, ColorEx BaseColor )
+		{
+			ColorEx oComplement = BaseColor.Clone ( );
 
-        private void FillComplements ( Button[ ] Buttons, ColorEx BaseColor )
-        {
-            ColorEx oComplement = BaseColor.Clone ( );
+			oComplement.H += ( short )( ColorEx.MaxHue / 2 );
 
-            oComplement.H += ( short )( ColorEx.MaxHue / 2 );
+			Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
+			Buttons[ 1 ].Background = new SolidColorBrush ( oComplement.Color );
+		}
 
-            Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
-            Buttons[ 1 ].Background = new SolidColorBrush ( oComplement.Color );
-        }
+		private void FillSplitComplements ( Button[ ] Buttons, ColorEx BaseColor )
+		{
+			ColorEx oComplement1 = BaseColor.Clone ( );
+			ColorEx oComplement2 = BaseColor.Clone ( );
 
-        private void FillSplitComplements ( Button[ ] Buttons, ColorEx BaseColor )
-        {
-            ColorEx oComplement1 = BaseColor.Clone ( );
-            ColorEx oComplement2 = BaseColor.Clone ( );
+			oComplement1.H += ( short )( ( ColorEx.MaxHue / 2 ) - 30 );
+			oComplement2.H += ( short )( ( ColorEx.MaxHue / 2 ) + 30 );
 
-            oComplement1.H += ( short )( ( ColorEx.MaxHue / 2 ) - 30 );
-            oComplement2.H += ( short )( ( ColorEx.MaxHue / 2 ) + 30 );
+			Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
+			Buttons[ 1 ].Background = new SolidColorBrush ( oComplement1.Color );
+			Buttons[ 2 ].Background = new SolidColorBrush ( oComplement2.Color );
+		}
 
-            Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
-            Buttons[ 1 ].Background = new SolidColorBrush ( oComplement1.Color );
-            Buttons[ 2 ].Background = new SolidColorBrush ( oComplement2.Color );
-        }
+		private void FillTriads ( Button[ ] Buttons, ColorEx BaseColor )
+		{
+			ColorEx oTriad1 = BaseColor.Clone ( );
+			ColorEx oTriad2 = BaseColor.Clone ( );
 
-        private void FillTriads ( Button[ ] Buttons, ColorEx BaseColor )
-        {
-            ColorEx oTriad1 = BaseColor.Clone ( );
-            ColorEx oTriad2 = BaseColor.Clone ( );
+			oTriad1.H += 120;
+			oTriad2.H -= 120;
 
-            oTriad1.H += 120;
-            oTriad2.H -= 120;
+			Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
+			Buttons[ 1 ].Background = new SolidColorBrush ( oTriad1.Color );
+			Buttons[ 2 ].Background = new SolidColorBrush ( oTriad2.Color );
+		}
 
-            Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
-            Buttons[ 1 ].Background = new SolidColorBrush ( oTriad1.Color );
-            Buttons[ 2 ].Background = new SolidColorBrush ( oTriad2.Color );
-        }
+		private void FillTetrads ( Button[ ] Buttons, ColorEx BaseColor )
+		{
+			ColorEx oTetrad1 = BaseColor.Clone ( );
+			ColorEx oTetrad2 = BaseColor.Clone ( );
+			ColorEx oTetrad3 = BaseColor.Clone ( );
 
-        private void FillTetrads ( Button[ ] Buttons, ColorEx BaseColor )
-        {
-            ColorEx oTetrad1 = BaseColor.Clone ( );
-            ColorEx oTetrad2 = BaseColor.Clone ( );
-            ColorEx oTetrad3 = BaseColor.Clone ( );
+			oTetrad1.H += 90;
+			oTetrad2.H += ( short )( ColorEx.MaxHue / 2 );
+			oTetrad3.H += ( short )( ( ColorEx.MaxHue / 2 ) + 90 );
 
-            oTetrad1.H += 90;
-            oTetrad2.H += ( short )( ColorEx.MaxHue / 2 );
-            oTetrad3.H += ( short )( ( ColorEx.MaxHue / 2 ) + 90 );
+			Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
+			Buttons[ 1 ].Background = new SolidColorBrush ( oTetrad1.Color );
+			Buttons[ 2 ].Background = new SolidColorBrush ( oTetrad2.Color );
+			Buttons[ 3 ].Background = new SolidColorBrush ( oTetrad3.Color );
+		}
 
-            Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
-            Buttons[ 1 ].Background = new SolidColorBrush ( oTetrad1.Color );
-            Buttons[ 2 ].Background = new SolidColorBrush ( oTetrad2.Color );
-            Buttons[ 3 ].Background = new SolidColorBrush ( oTetrad3.Color );
-        }
+		private void FillQuintads ( Button[ ] Buttons, ColorEx BaseColor )
+		{
+			ColorEx oQuintad1 = BaseColor.Clone ( );
+			ColorEx oQuintad2 = BaseColor.Clone ( );
+			ColorEx oQuintad3 = BaseColor.Clone ( );
+			ColorEx oQuintad4 = BaseColor.Clone ( );
 
-        private void FillQuintads ( Button[ ] Buttons, ColorEx BaseColor )
-        {
-            ColorEx oQuintad1 = BaseColor.Clone ( );
-            ColorEx oQuintad2 = BaseColor.Clone ( );
-            ColorEx oQuintad3 = BaseColor.Clone ( );
-            ColorEx oQuintad4 = BaseColor.Clone ( );
+			oQuintad1.H += 72;
+			oQuintad2.H += 2 * 72;
+			oQuintad3.H += 3 * 72;
+			oQuintad4.H += 4 * 72;
 
-            oQuintad1.H += 72;
-            oQuintad2.H += 2 * 72;
-            oQuintad3.H += 3 * 72;
-            oQuintad4.H += 4 * 72;
+			Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
+			Buttons[ 1 ].Background = new SolidColorBrush ( oQuintad1.Color );
+			Buttons[ 2 ].Background = new SolidColorBrush ( oQuintad2.Color );
+			Buttons[ 3 ].Background = new SolidColorBrush ( oQuintad3.Color );
+			Buttons[ 4 ].Background = new SolidColorBrush ( oQuintad4.Color );
+		}
 
-            Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
-            Buttons[ 1 ].Background = new SolidColorBrush ( oQuintad1.Color );
-            Buttons[ 2 ].Background = new SolidColorBrush ( oQuintad2.Color );
-            Buttons[ 3 ].Background = new SolidColorBrush ( oQuintad3.Color );
-            Buttons[ 4 ].Background = new SolidColorBrush ( oQuintad4.Color );
-        }
+		private void FillAnalogous ( Button[ ] Buttons, ColorEx BaseColor )
+		{
+			ColorEx oAnalogous1 = BaseColor.Clone ( );
+			ColorEx oAnalogous2 = BaseColor.Clone ( );
 
-        private void FillAnalogous ( Button[ ] Buttons, ColorEx BaseColor )
-        {
-            ColorEx oAnalogous1 = BaseColor.Clone ( );
-            ColorEx oAnalogous2 = BaseColor.Clone ( );
+			oAnalogous1.H += 30;
+			oAnalogous2.H -= 30;
 
-            oAnalogous1.H += 30;
-            oAnalogous2.H -= 30;
+			Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
+			Buttons[ 1 ].Background = new SolidColorBrush ( oAnalogous1.Color );
+			Buttons[ 2 ].Background = new SolidColorBrush ( oAnalogous2.Color );
+		}
 
-            Buttons[ 0 ].Background = new SolidColorBrush ( BaseColor.Color );
-            Buttons[ 1 ].Background = new SolidColorBrush ( oAnalogous1.Color );
-            Buttons[ 2 ].Background = new SolidColorBrush ( oAnalogous2.Color );
-        }
+		private void FillMonochromatics ( Button[ ] Buttons, ColorEx BaseColor )
+		{
+			byte nGap = 20;
+			byte nS = BaseColor.S;
+			ColorEx oMonochromatic0;
+			ColorEx oMonochromatic1;
+			ColorEx oMonochromatic2;
+			ColorEx oMonochromatic3;
+			ColorEx oMonochromatic4;
 
-        private void FillMonochromatics ( Button[ ] Buttons, ColorEx BaseColor )
-        {
-            byte nGap = 20;
-            byte nS = BaseColor.S;
-            ColorEx oMonochromatic0;
-            ColorEx oMonochromatic1;
-            ColorEx oMonochromatic2;
-            ColorEx oMonochromatic3;
-            ColorEx oMonochromatic4;
+			while ( nS <= ColorEx.MaxSaturation )
+			{
+				nS += nGap;
+			}
 
-            while ( nS <= ColorEx.MaxSaturation )
-            {
-                nS += nGap;
-            }
+			nS -= nGap;
 
-            nS -= nGap;
+			oMonochromatic0 = new ColorEx ( )
+			{
+				H = BaseColor.H,
+				S = nS,
+				V = BaseColor.V
+			};
+			oMonochromatic1 = new ColorEx ( )
+			{
+				H = BaseColor.H,
+				S = ( byte )( nS - nGap ),
+				V = BaseColor.V
+			};
+			oMonochromatic2 = new ColorEx ( )
+			{
+				H = BaseColor.H,
+				S = ( byte )( nS - ( 2 * nGap ) ),
+				V = BaseColor.V
+			};
+			oMonochromatic3 = new ColorEx ( )
+			{
+				H = BaseColor.H,
+				S = ( byte )( nS - ( 3 * nGap ) ),
+				V = BaseColor.V
+			};
+			oMonochromatic4 = new ColorEx ( )
+			{
+				H = BaseColor.H,
+				S = ( byte )( nS - ( 4 * nGap ) ),
+				V = BaseColor.V
+			};
 
-            oMonochromatic0 = new ColorEx ( )
-            {
-                H = BaseColor.H,
-                S = nS,
-                V = BaseColor.V
-            };
-            oMonochromatic1 = new ColorEx ( )
-            {
-                H = BaseColor.H,
-                S = ( byte )( nS - nGap ),
-                V = BaseColor.V
-            };
-            oMonochromatic2 = new ColorEx ( )
-            {
-                H = BaseColor.H,
-                S = ( byte )( nS - ( 2 * nGap ) ),
-                V = BaseColor.V
-            };
-            oMonochromatic3 = new ColorEx ( )
-            {
-                H = BaseColor.H,
-                S = ( byte )( nS - ( 3 * nGap ) ),
-                V = BaseColor.V
-            };
-            oMonochromatic4 = new ColorEx ( )
-            {
-                H = BaseColor.H,
-                S = ( byte )( nS - ( 4 * nGap ) ),
-                V = BaseColor.V
-            };
+			Buttons[ 0 ].Background = new SolidColorBrush ( oMonochromatic0.Color );
+			Buttons[ 1 ].Background = new SolidColorBrush ( oMonochromatic1.Color );
+			Buttons[ 2 ].Background = new SolidColorBrush ( oMonochromatic2.Color );
+			Buttons[ 3 ].Background = new SolidColorBrush ( oMonochromatic3.Color );
+			Buttons[ 4 ].Background = new SolidColorBrush ( oMonochromatic4.Color );
+		}
 
-            Buttons[ 0 ].Background = new SolidColorBrush ( oMonochromatic0.Color );
-            Buttons[ 1 ].Background = new SolidColorBrush ( oMonochromatic1.Color );
-            Buttons[ 2 ].Background = new SolidColorBrush ( oMonochromatic2.Color );
-            Buttons[ 3 ].Background = new SolidColorBrush ( oMonochromatic3.Color );
-            Buttons[ 4 ].Background = new SolidColorBrush ( oMonochromatic4.Color );
-        }
+		private void FillCombinations ( Array[ ] Buttons, ColorEx BaseColor )
+		{
+			ColorEx oQuintad1 = BaseColor.Clone ( );
+			ColorEx oQuintad2 = BaseColor.Clone ( );
+			ColorEx oQuintad3 = BaseColor.Clone ( );
+			ColorEx oQuintad4 = BaseColor.Clone ( );
 
-        private void FillCombinations ( Array[ ] Buttons, ColorEx BaseColor )
-        {
-            ColorEx oQuintad1 = BaseColor.Clone ( );
-            ColorEx oQuintad2 = BaseColor.Clone ( );
-            ColorEx oQuintad3 = BaseColor.Clone ( );
-            ColorEx oQuintad4 = BaseColor.Clone ( );
+			oQuintad1.H += 72;
+			oQuintad2.H += 2 * 72;
+			oQuintad3.H += 3 * 72;
+			oQuintad4.H += 4 * 72;
 
-            oQuintad1.H += 72;
-            oQuintad2.H += 2 * 72;
-            oQuintad3.H += 3 * 72;
-            oQuintad4.H += 4 * 72;
+			FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 0 ), BaseColor );
+			FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 1 ), oQuintad1 );
+			FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 2 ), oQuintad2 );
+			FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 3 ), oQuintad3 );
+			FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 4 ), oQuintad4 );
+		}
 
-            FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 0 ), BaseColor );
-            FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 1 ), oQuintad1 );
-            FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 2 ), oQuintad2 );
-            FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 3 ), oQuintad3 );
-            FillMonochromatics ( ( Button[ ] )Buttons.GetValue ( 4 ), oQuintad4 );
-        }
+		private object GetService ( Type service )
+		{
+			if ( _Parent != null )
+			{
+				return ( _Parent.GetVsService ( service ) );
+			}
 
-        private object GetService ( Type service )
-        {
-            if ( _Parent != null )
-            {
-                return ( _Parent.GetVsService ( service ) );
-            }
+			return ( null );
+		}
 
-            return ( null );
-        }
+		private void Button_Click ( object sender, System.Windows.RoutedEventArgs e )
+		{
+			EnvDTE80.DTE2 oApplication = ( EnvDTE80.DTE2 )GetService ( typeof ( EnvDTE.DTE ) );
+			EnvDTE.Document oActive = oApplication.ActiveDocument;
 
-        private void Button_Click ( object sender, System.Windows.RoutedEventArgs e )
-        {
-            EnvDTE80.DTE2 oApplication = ( EnvDTE80.DTE2 )GetService ( typeof ( EnvDTE.DTE ) );
-            EnvDTE.Document oActive = oApplication.ActiveDocument;
+			if ( _OptionPage == null )
+			{
+				_OptionPage = new ColorSchemeOptionsPage ( );
+				PropertyInfo[ ] oPropertyInfoArray = _OptionPage.GetType ( ).GetProperties ( );
+				Properties oProperties = oApplication.get_Properties ( "Custom Tools", "Color Scheme Selector" );
 
-            if ( _OptionPage == null )
-            {
-                _OptionPage = new ColorSchemeOptionsPage ( );
-                PropertyInfo[ ] oPropertyInfoArray = _OptionPage.GetType ( ).GetProperties ( );
-                Properties oProperties = oApplication.get_Properties ( "Custom Tools", "Color Scheme Selector" );
+				foreach ( PropertyInfo oPropertyInfo in oPropertyInfoArray )
+				{
+					if ( oPropertyInfo.ReflectedType == oPropertyInfo.DeclaringType )
+					{
+						oPropertyInfo.SetValue ( _OptionPage, oProperties.Item ( oPropertyInfo.Name ).Value, null );
+					}
+				}
+			}
 
-                foreach ( PropertyInfo oPropertyInfo in oPropertyInfoArray )
-                {
-                    if ( oPropertyInfo.ReflectedType == oPropertyInfo.DeclaringType )
-                    {
-                        oPropertyInfo.SetValue ( _OptionPage, oProperties.Item ( oPropertyInfo.Name ).Value, null );
-                    }
-                }
-            }
+			if ( oActive != null )
+			{
+				string szLanguage = oActive.Language;
+				TextSelection oSelection = ( TextSelection )oActive.Selection;
 
-            if ( oActive != null )
-            {
-                string szLanguage = oActive.Language;
-                TextSelection oSelection = ( TextSelection )oActive.Selection;
+				Color2CodeMap oMap = _OptionPage.Color2CodeList.Find ( oItem => oItem.Language.ToLower ( ).Equals ( oActive.Language.ToLower ( ) ) );
 
-                Color2CodeMap oMap = _OptionPage.Color2CodeList.Find ( oItem => oItem.Language.ToLower ( ).Equals ( oActive.Language.ToLower ( ) ) );
+				if ( oMap != null )
+				{
+					oSelection.Text = EvaluateTemplate ( oMap.Template, ( ( SolidColorBrush )( ( Button )sender ).Background ).Color );
+				}
+			}
+		}
 
-                if ( oMap != null )
-                {
-                    oSelection.Text = EvaluateTemplate ( oMap.Template, ( ( SolidColorBrush )( ( Button )sender ).Background ).Color );
-                }
-            }
-        }
-
-        private string EvaluateTemplate ( string Template, Color Color )
-        {
-            IDictionary<string, string> oReplMap = new Dictionary<string, string> ( )
+		private string EvaluateTemplate ( string Template, Color Color )
+		{
+			IDictionary<string, string> oReplMap = new Dictionary<string, string> ( )
 															{
 																{"%X",X(Color)},
 																{"%R",R(Color)},
@@ -298,52 +289,52 @@ namespace ColorSchemeExtension
 																{"%C",C(Color)}
 															};
 
-            Regex oRegex = new Regex ( String.Join ( "|", oReplMap.Keys ), RegexOptions.IgnoreCase );
-            string szWork = oRegex.Replace ( Template, oItem => oReplMap[ oItem.Value ] );
+			Regex oRegex = new Regex ( String.Join ( "|", oReplMap.Keys ), RegexOptions.IgnoreCase );
+			string szWork = oRegex.Replace ( Template, oItem => oReplMap[ oItem.Value ] );
 
-            return ( szWork );
-        }
+			return ( szWork );
+		}
 
-        private string R ( Color Color )
-        {
-            return ( string.Format ( "{0}", Color.R ) );
-        }
+		private string R ( Color Color )
+		{
+			return ( string.Format ( "{0}", Color.R ) );
+		}
 
-        private string G ( Color Color )
-        {
-            return ( string.Format ( "{0}", Color.G ) );
-        }
+		private string G ( Color Color )
+		{
+			return ( string.Format ( "{0}", Color.G ) );
+		}
 
-        private string B ( Color Color )
-        {
-            return ( string.Format ( "{0}", Color.B ) );
-        }
+		private string B ( Color Color )
+		{
+			return ( string.Format ( "{0}", Color.B ) );
+		}
 
-        private string Rx ( Color Color )
-        {
-            return ( string.Format ( "#{0:X2}", Color.R ) );
-        }
+		private string Rx ( Color Color )
+		{
+			return ( string.Format ( "#{0:X2}", Color.R ) );
+		}
 
-        private string Gx ( Color Color )
-        {
-            return ( string.Format ( "#{0:X2}", Color.G ) );
-        }
+		private string Gx ( Color Color )
+		{
+			return ( string.Format ( "#{0:X2}", Color.G ) );
+		}
 
-        private string Bx ( Color Color )
-        {
-            return ( string.Format ( "#{0:X2}", Color.B ) );
-        }
+		private string Bx ( Color Color )
+		{
+			return ( string.Format ( "#{0:X2}", Color.B ) );
+		}
 
-        private string X ( Color Color )
-        {
-            return ( string.Format ( "#{0:X2}{1:X2}{2:X2}", Color.R, Color.G, Color.B ) );
-        }
+		private string X ( Color Color )
+		{
+			return ( string.Format ( "#{0:X2}{1:X2}{2:X2}", Color.R, Color.G, Color.B ) );
+		}
 
-        private string C ( Color Color )
-        {
-            return ( string.Format ( "{0}", Convert.ToUInt16 ( string.Format ( "{0:X2}{1:X2}{2:X2}", Color.R, Color.G, Color.B ), 16 ) ) );
-        }
-    }
+		private string C ( Color Color )
+		{
+			return ( string.Format ( "{0}", Convert.ToUInt16 ( string.Format ( "{0:X2}{1:X2}{2:X2}", Color.R, Color.G, Color.B ), 16 ) ) );
+		}
+	}
 }
 
 /*

@@ -105,6 +105,9 @@
     <Compile Include="ColorWheelR.xaml.cs">
       <DependentUpon>ColorWheelR.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ColorWheelRGB.xaml.cs">
+      <DependentUpon>ColorWheelRGB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Consts.cs" />
     <Compile Include="ColorSchemeSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ColorWheelR.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ColorWheelRGB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
