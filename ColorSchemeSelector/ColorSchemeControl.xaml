@@ -41,110 +41,118 @@
                 <TabItem Header="Complements">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Complements_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Complements_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Complements_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Complements_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Split Complements">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Split_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Split_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Split_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Split_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Split_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Split_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Triads">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Triads_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Triads_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Triads_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Triads_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Triads_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Triads_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Tetrads">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Tetrads_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Tetrads_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Tetrads_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Tetrads_0_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Tetrads_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Tetrads_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Tetrads_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Tetrads_0_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Quintads">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Quintads_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Quintads_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Quintads_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Quintads_0_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Quintads_0_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Quintads_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Quintads_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Quintads_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Quintads_0_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Quintads_0_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Analogous">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Analogous_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Analogous_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Analogous_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Analogous_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Analogous_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Analogous_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Monochromatics">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Monochromatics_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Monochromatics_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Monochromatics_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Monochromatics_0_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Monochromatics_0_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Monochromatics_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Monochromatics_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Monochromatics_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Monochromatics_0_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Monochromatics_0_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Combinations">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Combinations_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_0_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_0_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Combinations_0_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_0_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_0_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_0_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_0_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Combinations_1_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_1_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_1_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_1_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_1_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Combinations_1_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_1_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_1_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_1_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_1_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Combinations_2_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_2_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_2_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_2_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_2_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Combinations_2_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_2_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_2_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_2_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_2_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Combinations_3_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_3_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_3_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_3_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_3_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Combinations_3_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_3_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_3_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_3_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_3_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Button Name="Combinations_4_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_4_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_4_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_4_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
-                            <Button Name="Combinations_4_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0"/>
+                            <Button Name="Combinations_4_0" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_4_1" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_4_2" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_4_3" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
+                            <Button Name="Combinations_4_4" Height="28" Width="28" Click="Button_Click" Margin="3,0,0,0" Focusable="False"/>
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
             </TabControl>
+            <StackPanel Orientation="Horizontal" Margin="8,0,8,0" HorizontalAlignment="Center">
+                <Button Content="Save Current Color" Click="Save_Click" Focusable="False"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="8,8,8,8">
+                <Label Content="Load:" FontWeight="Bold" Width="23" />
+                <ListBox>
+                </ListBox>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

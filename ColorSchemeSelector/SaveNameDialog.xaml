@@ -1,0 +1,27 @@
+﻿<Window 
+    x:Class="ColorSchemeExtension.SaveNameDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Save Color" 
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="ToolWindow"
+    Height="190" 
+    Width="300">
+    <Grid>
+        <StackPanel>
+            <StackPanel Margin="8,8,8,8">
+                <Label x:Name="SelectedColor" Height="40" Width="92" />
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Choose a name:"/>
+                <TextBox x:Name="SaveName" Height="23" Margin="8,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="8,8,8,8">
+                <Button Content="Cancel" IsCancel="True" Margin="8,8,8,8" Width="50"/>
+                <Button Content="Save" IsDefault="True" Margin="8,8,8,8" Width="50" Click="Button_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

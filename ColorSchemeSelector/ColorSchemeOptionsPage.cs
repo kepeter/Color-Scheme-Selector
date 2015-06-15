@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Media;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 using Newtonsoft.Json;
@@ -24,8 +25,8 @@ namespace ColorSchemeExtension
 			new Color2CodeMap( ) { Language = "F#", Template = "Color.FromRgb(%R, %G, %B)", Explaination="Including F# script files" },
 			new Color2CodeMap( ) { Language = "Basic", Template = "Color.FromRgb(%R, %G, %B)" },
 			new Color2CodeMap( ) { Language = "HTMLX", Template = "'%X'", Explaination="Plain HTML file" },
-			new Color2CodeMap( ) { Language = "HTML", Template = "'%X'", Explaination="Including ASPX files, master pages and user controls"},
-			new Color2CodeMap( ) { Language = "C/C++", Template = "Color::FromRgb(%R, %G, %B)", Explaination="Including C/C++ header files"}
+			new Color2CodeMap( ) { Language = "HTML", Template = "'%X'", Explaination="Including ASPX files, master pages and user controls" },
+			new Color2CodeMap( ) { Language = "C/C++", Template = "Color::FromRgb(%R, %G, %B)", Explaination="Including C/C++ header files" }
 		};
 
 		public Color2CodeList Color2CodeList
@@ -37,6 +38,20 @@ namespace ColorSchemeExtension
 			set
 			{
 				_Color2CodeList = value;
+			}
+		}
+
+		private SavedColorList _SavedColorList = new SavedColorList( );
+
+		public SavedColorList SavedColorList
+		{
+			get
+			{
+				return ( _SavedColorList );
+			}
+			set
+			{
+				_SavedColorList = value;
 			}
 		}
 
@@ -93,6 +108,54 @@ namespace ColorSchemeExtension
 		public override object ConvertFrom ( ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value )
 		{
 			return ( JsonConvert.DeserializeObject<Color2CodeList>( Convert.ToString( value ) ) );
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, System.Type destinationType )
+		{
+			return ( JsonConvert.SerializeObject( value ) );
+		}
+
+		public override bool IsValid ( ITypeDescriptorContext context, object value )
+		{
+			return ( true );
+		}
+	}
+
+	public class SavedColor
+	{
+		public string Name
+		{
+			get;
+			set;
+		}
+
+		public Color Value
+		{
+			get;
+			set;
+		}
+	}
+
+	[TypeConverter( typeof( SavedColorListTypeConverter ) )]
+	public class SavedColorList : List<SavedColor>
+	{
+	}
+
+	public class SavedColorListTypeConverter : TypeConverter
+	{
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, System.Type sourceType )
+		{
+			return ( sourceType == typeof( string ) );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, System.Type destinationType )
+		{
+			return ( destinationType == typeof( string ) );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value )
+		{
+			return ( JsonConvert.DeserializeObject<SavedColorList>( Convert.ToString( value ) ) );
 		}
 
 		public override object ConvertTo ( ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, System.Type destinationType )
