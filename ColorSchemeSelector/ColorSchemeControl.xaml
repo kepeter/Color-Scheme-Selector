@@ -149,8 +149,25 @@
                 <Button Content="Save Current Color" Click="Save_Click" Focusable="False"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="8,8,8,8">
-                <Label Content="Load:" FontWeight="Bold" Width="23" />
-                <ListBox>
+                <Label Content="Load:" FontWeight="Bold" Width="48" />
+                <ListBox x:Name="SavedColorList" Width="240" MaxHeight="240" HorizontalContentAlignment="Stretch" Loaded="SavedColorList_Loaded" Focusable="False">
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Delete" Click="MenuItem_Click" />
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+                    <ListBox.ItemTemplate>
+                    <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Name}" Width="200" />
+                                <Button Width="23" Height="23" Focusable="False" Click="SavedColor_Click">
+                                    <Button.Background>
+                                        <SolidColorBrush Color="{Binding Value}" />
+                                    </Button.Background>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
         </StackPanel>
