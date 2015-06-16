@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -16,19 +14,18 @@ namespace ColorSchemeExtension
 	[Guid( Guids.Package )]
 	public sealed class ColorSchemeSelector : Package
 	{
-		public ColorSchemeSelector ( )
-		{
-		}
-
 		private void ShowToolWindow ( object sender, EventArgs e )
 		{
-			ToolWindowPane window = this.FindToolWindow( typeof( ColorSchemeToolWindow ), 0, true );
-			if ( ( null == window ) || ( null == window.Frame ) )
+			ToolWindowPane oWindow = FindToolWindow( typeof( ColorSchemeToolWindow ), 0, true );
+
+			if ( ( oWindow == null ) || ( oWindow.Frame == null ) )
 			{
 				throw new NotSupportedException( "Can not create tool window." );
 			}
-			IVsWindowFrame windowFrame = ( IVsWindowFrame )window.Frame;
-			Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure( windowFrame.Show( ) );
+
+			IVsWindowFrame oWindowFrame = ( IVsWindowFrame )oWindow.Frame;
+			
+			Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure( oWindowFrame.Show( ) );
 		}
 
 		#region Package Members

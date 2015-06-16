@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:ColorSchemeExtension"
     x:Class="ColorSchemeExtension.ColorSchemeControl" 
     mc:Ignorable="d" 
-    d:DesignHeight="600" 
+    d:DesignHeight="720" 
     d:DesignWidth="304"
     x:Name="ToolControl">
     <Grid>
@@ -150,7 +150,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="8,8,8,8">
                 <Label Content="Load:" FontWeight="Bold" Width="48" />
-                <ListBox x:Name="SavedColorList" Width="240" MaxHeight="240" HorizontalContentAlignment="Stretch" Loaded="SavedColorList_Loaded" Focusable="False">
+                <ListBox x:Name="SavedColorList" Width="240" Height="158" HorizontalContentAlignment="Stretch" Loaded="SavedColorList_Loaded">
                     <ListBox.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Delete" Click="MenuItem_Click" />
@@ -159,7 +159,7 @@
                     <ListBox.ItemTemplate>
                     <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding Name}" Width="200" />
+                                <Label Content="{Binding Name}" Width="180" />
                                 <Button Width="23" Height="23" Focusable="False" Click="SavedColor_Click">
                                     <Button.Background>
                                         <SolidColorBrush Color="{Binding Value}" />

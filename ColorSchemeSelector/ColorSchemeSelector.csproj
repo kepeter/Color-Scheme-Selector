@@ -119,7 +119,7 @@
     <EmbeddedResource Include="ColorSchemeOptionsControl.resx">
       <DependentUpon>ColorSchemeOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VSPackage.resx">
+    <EmbeddedResource Include="ColorSchemeSelector.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
       <SubType>Designer</SubType>
