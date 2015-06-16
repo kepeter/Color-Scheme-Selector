@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Media;
+using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Settings;
 using Microsoft.Win32;
@@ -14,33 +15,26 @@ namespace ColorSchemeExtension
 	[ComVisible ( true )]
 	public class ColorSchemeOptionsPage : DialogPage
 	{
-		// This is the only way I found to forse saving settings from code (withotu opening the options dialog)
-		public void SaveSettingsToStorage ( EnvDTE80.DTE2 Application )
+		// This is the only way I found to force saving settings from code (withotu opening the options dialog)
+		public void SaveSettingsToStorage ( WritableSettingsStore Store )
 		{
-			RegistryKey oRegistryRoot = Registry.CurrentUser.OpenSubKey( Application.RegistryRoot );
-			RegistryKey oRegistryKey = oRegistryRoot.OpenSubKey ( SettingsRegistryPath, true );
-
-			if ( oRegistryKey == null )
+			PropertyDescriptorCollection oProperties = TypeDescriptor.GetProperties ( AutomationObject, new Attribute[ ]
 			{
-				oRegistryKey = oRegistryRoot.CreateSubKey ( SettingsRegistryPath );
+				DesignerSerializationVisibilityAttribute.Visible
+			} );
+
+			if ( !Store.CollectionExists ( SettingsRegistryPath ) )
+			{
+				Store.CreateCollection ( SettingsRegistryPath );
 			}
 
-			using ( oRegistryKey )
+			foreach ( PropertyDescriptor oProperty in oProperties )
 			{
-				PropertyDescriptorCollection oProperties = TypeDescriptor.GetProperties ( AutomationObject, new Attribute[ ]
+				TypeConverter oConverter = oProperty.Converter;
+
+				if ( oConverter.CanConvertTo( typeof( string ) ) && oConverter.CanConvertFrom( typeof( string ) ) )
 				{
-					DesignerSerializationVisibilityAttribute.Visible
-				} );
-
-
-				foreach ( PropertyDescriptor oProperty in oProperties )
-				{
-					TypeConverter oConverter = oProperty.Converter;
-
-					if ( oConverter.CanConvertTo( typeof( string ) ) && oConverter.CanConvertFrom( typeof( string ) ) )
-					{
-						oRegistryKey.SetValue( oProperty.Name, oConverter.ConvertToInvariantString( oProperty.GetValue( AutomationObject ) ) );
-					}
+					Store.SetString ( SettingsRegistryPath, oProperty.Name, oConverter.ConvertToInvariantString ( oProperty.GetValue ( AutomationObject ) ) );
 				}
 			}
 		}

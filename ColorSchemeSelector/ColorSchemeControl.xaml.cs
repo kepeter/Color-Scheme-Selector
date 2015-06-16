@@ -335,7 +335,7 @@ namespace ColorSchemeExtension
 						} );
 					}
 
-					OptionPage.SaveSettingsToStorage( ( EnvDTE80.DTE2 )GetService( typeof( EnvDTE.DTE ) ) );
+					OptionPage.SaveSettingsToStorage( _Parent.WritableSettingsStore );
 
 					FillSavedList( );
 				}
@@ -422,7 +422,7 @@ namespace ColorSchemeExtension
 			{
 				OptionPage.SavedColorList.Remove( ( ( SavedColor )SavedColorList.SelectedValue ) );
 
-				OptionPage.SaveSettingsToStorage( ( EnvDTE80.DTE2 )GetService( typeof( EnvDTE.DTE ) ) );
+				OptionPage.SaveSettingsToStorage( _Parent.WritableSettingsStore );
 
 				FillSavedList( );
 			}

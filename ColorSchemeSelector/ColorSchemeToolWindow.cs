@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell;
 
 namespace ColorSchemeExtension
@@ -16,6 +17,12 @@ namespace ColorSchemeExtension
 
 			base.Content = new ColorSchemeControl( this );
 		}
+
+        public WritableSettingsStore WritableSettingsStore
+        {
+            get;
+            set;
+        }
 
 		internal object GetVsService ( Type service )
 		{

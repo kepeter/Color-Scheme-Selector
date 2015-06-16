@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Shell.Settings;
 
 namespace ColorSchemeExtension
 {
@@ -14,14 +16,29 @@ namespace ColorSchemeExtension
 	[Guid( Guids.Package )]
 	public sealed class ColorSchemeSelector : Package
 	{
+        private void InitStore()
+        {
+            ToolWindowPane oWindow = FindToolWindow ( typeof ( ColorSchemeToolWindow ), 0, true );
+
+            if ( ( oWindow != null ) && ( oWindow.Frame != null ) )
+            {
+                SettingsManager oSettingsManager = new ShellSettingsManager ( this );
+                WritableSettingsStore oWritableSettingsStore = oSettingsManager.GetWritableSettingsStore ( SettingsScope.UserSettings );
+
+                ( ( ColorSchemeToolWindow )oWindow ).WritableSettingsStore = oWritableSettingsStore;
+            }
+        }
+
 		private void ShowToolWindow ( object sender, EventArgs e )
 		{
-			ToolWindowPane oWindow = FindToolWindow( typeof( ColorSchemeToolWindow ), 0, true );
+            ToolWindowPane oWindow = FindToolWindow ( typeof ( ColorSchemeToolWindow ), 0, true );
 
 			if ( ( oWindow == null ) || ( oWindow.Frame == null ) )
 			{
 				throw new NotSupportedException( "Can not create tool window." );
 			}
+
+            InitStore ( );
 
 			IVsWindowFrame oWindowFrame = ( IVsWindowFrame )oWindow.Frame;
 			
@@ -33,6 +50,8 @@ namespace ColorSchemeExtension
 		protected override void Initialize ( )
 		{
 			base.Initialize( );
+
+            InitStore ( );
 
 			OleMenuCommandService oOleMenuCommandService = ( OleMenuCommandService )GetService( typeof( IMenuCommandService ) );
 
