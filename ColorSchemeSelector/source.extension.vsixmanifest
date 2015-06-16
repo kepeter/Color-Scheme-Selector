@@ -4,8 +4,8 @@
 		<Identity Id="21ba397b-c8ca-4b78-862f-47c457493c46" Version="1.0" Language="en-US" Publisher="Eliyahu Peter Kornfeld" />
 		<DisplayName>ColorSchemeSelector</DisplayName>
 		<Description xml:space="preserve">Tool to select consistence color scheme based on single color. Useful for web development...</Description>
-		<MoreInfo>http://www.codeproject.com/script/Articles/MemberArticles.aspx?amid=3164287</MoreInfo>
-		<ReleaseNotes>http://www.codeproject.com/script/Articles/MemberArticles.aspx?amid=3164287</ReleaseNotes>
+		<MoreInfo>http://www.codeproject.com/Articles/1001468/Color-Scheme-Selector</MoreInfo>
+		<ReleaseNotes>https://visualstudiogallery.msdn.microsoft.com/87842bde-bb34-42ec-98fb-6f3ac4a4c02f</ReleaseNotes>
 		<Icon>Resources\Package.ico</Icon>
 		<PreviewImage>Resources\Preview.png</PreviewImage>
 	</Metadata>

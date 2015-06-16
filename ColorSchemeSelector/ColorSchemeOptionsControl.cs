@@ -37,7 +37,7 @@ namespace ColorSchemeExtension
 			}
 			else
 			{
-				if ( MessageBox.Show( string.Format( "{1}Are you sure?", ColorMapGrid.CurrentRow.Cells[ 0 ].Value, Environment.NewLine ), "Color Scheme Selector", MessageBoxButtons.YesNo ) == DialogResult.Yes )
+				if ( MessageBox.Show( "Are you sure?", "Color Scheme Selector", MessageBoxButtons.YesNo ) == DialogResult.Yes )
 				{
 					_Parent.Color2CodeList.RemoveAt( ColorMapGrid.CurrentRow.Index );
 

@@ -10,7 +10,7 @@ using EnvDTE;
 
 namespace ColorSchemeExtension
 {
-	public partial class ColorSchemeControl : UserControl
+	public partial class ColorSchemeControl : UserControl, IDisposable
 	{
 		private enum ColorSets
 		{
@@ -53,6 +53,11 @@ namespace ColorSchemeExtension
 			RGBWheel.PropertyChanged += Color_PropertyChanged;
 
 			FillColorButtons( );
+		}
+
+		~ColorSchemeControl ( )
+		{
+			Dispose( false );
 		}
 
 		private ColorSchemeOptionsPage _OptionPage = null;
@@ -422,5 +427,31 @@ namespace ColorSchemeExtension
 				FillSavedList( );
 			}
 		}
+
+		#region Implement IDisposable because of OptionPage (a win form, that IDisposable)
+
+		private bool _Disposed = false;
+
+		protected virtual void Dispose ( bool Dispose )
+		{
+			if ( !_Disposed )
+			{
+				if ( Dispose )
+				{
+					_OptionPage.Dispose( );
+				}
+
+				_Disposed = true;
+			}
+		}
+
+		public void Dispose ( )
+		{
+			Dispose( true );
+
+			GC.SuppressFinalize( this );
+		}
+
+		#endregion
 	}
 }
