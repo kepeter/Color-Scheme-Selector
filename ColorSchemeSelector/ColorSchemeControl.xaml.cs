@@ -438,7 +438,7 @@ namespace ColorSchemeExtension
 			{
 				if ( Dispose )
 				{
-					_OptionPage.Dispose( );
+					OptionPage.Dispose( );
 				}
 
 				_Disposed = true;
